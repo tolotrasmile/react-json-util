@@ -10,14 +10,13 @@ import "./styles.css";
 function App() {
   const [isValid, setValid] = useState(false);
   const [text, onChangeText, setText] = useInput();
+  const [space, onChangeSpace] = useInput(4);
 
   useEffect(() => {
     setValid(isValidJson(text));
   }, [text]);
 
-  const onClickBeutify = e => {
-    setText(formatJson(text));
-  };
+  const onClickBeutify = () => setText(formatJson(text, space));
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
@@ -68,9 +67,12 @@ function App() {
           </div>
           <div>
             <Select
+              onChange={onChangeSpace}
+              value={space}
               options={[
+                { value: 2, label: "2 spaces" },
                 { value: 4, label: "4 spaces" },
-                { value: 2, label: "4 spaces" }
+                { value: 8, label: "8 spaces" }
               ]}
             />
           </div>
